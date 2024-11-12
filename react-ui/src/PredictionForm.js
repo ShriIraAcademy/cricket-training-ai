@@ -3,9 +3,15 @@ import React, { useState } from 'react';
 import axios from 'axios';
 
 const PredictionForm = () => {
-    const [inputData, setInputData] = useState("");
+    // const [inputData, setInputData] = useState("");
+    const [age, setAge] = useState("");
+    const [height, setHeight] = useState("");
+    const [weight, setWeight] = useState("");
     const [prediction, setPrediction] = useState(null);
     const [error, setError] = useState(null);
+    const [trainingSegment, setTrainingSegment] = useState("Batting");
+    const [skillLevel, setSkillLevel] = useState("Beginner");
+    const [bowlingType, setBowlingType] = useState("Fast Bowler");
 
     // Handle form submission
     const handleSubmit = async (e) => {
@@ -15,7 +21,8 @@ const PredictionForm = () => {
         // Prepare data for the API request
         const data = {
             // input_data: inputData.split(",").map(Number), // Convert comma-separated input to an array of numbers
-            input_data: inputData.split(",").map((i) => [i]), // Convert comma-separated input to an array of numbers
+            // input_data: inputData.split(",").map((i) => [i]), // Convert comma-separated input to an array of numbers
+            input_data: [[height], [weight], [Math.round(weight / ((height / 100) ** 2))], [age]],
         };
 
         try {
@@ -28,26 +35,133 @@ const PredictionForm = () => {
         }
     };
 
+    const trainingSegmentOptions = [
+        { value: "Batting", label: "Batting" },
+        { value: "Bowling", label: "Bowling" },
+    ];
+
+    const skillLevelOptions = [
+        { value: "Beginner", label: "Beginner" },
+        { value: "Intermediate", label: "Intermediate" },
+        { value: "Expert", label: "Expert" },
+    ];
+
+    const bowlingTypeOptions = [
+        { value: "Fast Bowler", label: "Fast Bowler" },
+        { value: "Off Spinner", label: "Off Spinner" },
+        { value: "Leg Spinner", label: "Leg Spinner" },
+    ];
+
+    
+  // Recommendations data
+  const battingRecommendations = {
+    "Beginner": {
+        "Shots to Learn": [
+            { "shot": "Front Foot Defense", "reference": "https://youtu.be/HEHggOOds1w?si=jbks8CGKhagDGzJC" },
+            { "shot": "Back Foot Defense", "reference": "https://youtu.be/sKIwkvdAyJU?si=N8TPs0mfG8bj1i79" }
+        ],
+        "Guidance": ["Start with basic stance and grip.", "Practice hand-eye coordination drills."],
+        "Fitness": ["Agility drills", "Core strengthening"]
+    },
+    // Add more levels...
+};
+
+const bowlingRecommendations = {
+    "Fast Bowler": {
+        "Beginner": {
+            "Key Skills": [{ "Grip": "Basic accuracy", "Stance": "Run-up control" }],
+            "Guidance": ["Practice basic delivery strides.", "Work on line and length."],
+            "Fitness": ["Strengthen lower body", "Sprint intervals"]
+        },
+        // Add more bowler types...
+    }
+};
+
     return (
         <div>
             <h2>TensorFlow Model Prediction</h2>
             <form onSubmit={handleSubmit}>
-                <label>
+                {/* <label>
                     Enter input data (comma-separated):
                     <input
                         type="text"
                         value={inputData}
                         onChange={(e) => setInputData(e.target.value)}
                     />
+                </label> */}
+                <label>
+                    Age:
+                    <input
+                        type="text"
+                        value={age}
+                        onChange={(e) => setAge(e.target.value)}
+                    />
                 </label>
-                <button type="submit">Get Prediction</button>
+                <label>
+                Height (cm):
+                    <input
+                        type="text"
+                        value={height}
+                        onChange={(e) => setHeight(e.target.value)}
+                    />
+                </label>
+                <label>
+                Weight (kg):
+                    <input
+                        type="text"
+                        value={weight}
+                        onChange={(e) => setWeight(e.target.value)}
+                    />
+                </label>
+                <label>
+                Select Training Segment:
+                    <select
+                        value={trainingSegment}
+                        onChange={(e) => setTrainingSegment(e.target.value)}
+                    >
+                        {trainingSegmentOptions.map((option) => (
+                            <option key={option.value} value={option.value}>
+                                {option.label}
+                            </option>
+                        ))}
+                    </select>
+                </label>
+                
+                <label>
+                Select Skill Level:
+                    <select
+                        value={skillLevel}
+                        onChange={(e) => setSkillLevel(e.target.value)}
+                    >
+                        {skillLevelOptions.map((option) => (
+                            <option key={option.value} value={option.value}>
+                                {option.label}
+                            </option>
+                        ))}
+                    </select>
+                </label>
+
+                <label>
+                Select Bowling Type:
+                    <select
+                        value={bowlingType}
+                        onChange={(e) => setBowlingType(e.target.value)}
+                    >
+                        {bowlingTypeOptions.map((option) => (
+                            <option key={option.value} value={option.value}>
+                                {option.label}
+                            </option>
+                        ))}
+                    </select>
+                </label>
+                <button type="submit">Get Recommendations</button>
             </form>
 
             {error && <p style={{ color: "red" }}>{error}</p>}
 
             {prediction && (
                 <div>
-                    <h3>Prediction Result:</h3>
+                    <h3>Training Recommendations:</h3>
                     <pre>{JSON.stringify(prediction, null, 2)}</pre>
                 </div>
             )}

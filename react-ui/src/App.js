@@ -7,7 +7,7 @@ function App() {
     return (
         <div className="App">
             <header className="App-header">
-                <h1>Django + TensorFlow Prediction UI</h1>
+                <h1>Cricket Training Recommendations</h1>
             </header>
             <PredictionForm />
         </div>
