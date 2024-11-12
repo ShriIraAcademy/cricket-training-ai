@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cricket Training Recommendations</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+        <h1>Cricket Training Recommendations</h1>
+
+        <!-- User Input Form -->
+        <form id="trainingForm">
+            <label for="age">Age:</label>
+            <input type="number" id="age" required>
+
+            <label for="height">Height (cm):</label>
+            <input type="number" id="height" required>
+
+            <label for="weight">Weight (kg):</label>
+            <input type="number" id="weight" required>
+
+            <label for="segment">Select Training Segment:</label>
+            <select id="segment" required>
+                <option value="Batting">Batting</option>
+                <option value="Bowling">Bowling</option>
+            </select>
+
+            <label for="skill_level">Select Skill Level:</label>
+            <select id="skill_level" required>
+                <option value="Beginner">Beginner</option>
+                <option value="Intermediate">Intermediate</option>
+                <option value="Expert">Expert</option>
+            </select>
+
+            <div id="bowlingType" style="display:none;">
+                <label for="bowler_type">Select Bowling Type:</label>
+                <select id="bowler_type">
+                    <option value="Fast Bowler">Fast Bowler</option>
+                    <option value="Off Spinner">Off Spinner</option>
+                    <option value="Leg Spinner">Leg Spinner</option>
+                </select>
+            </div>
+
+            <button type="submit">Get Recommendations</button>
+        </form>
+
+        <!-- Recommendations Section -->
+        <div id="recommendations" style="display:none;">
+            <h2>Training Recommendations</h2>
+            <div id="skill_level_result"></div>
+            <div id="shots_to_learn"></div>
+            <div id="guidance"></div>
+            <div id="fitness"></div>
+            <a id="video_link" href="" target="_blank" style="display:none;">Watch Training Video</a>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
