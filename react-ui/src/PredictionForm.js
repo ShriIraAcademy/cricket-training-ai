@@ -14,13 +14,15 @@ const PredictionForm = () => {
 
         // Prepare data for the API request
         const data = {
-            input_data: inputData.split(",").map(Number), // Convert comma-separated input to an array of numbers
+            // input_data: inputData.split(",").map(Number), // Convert comma-separated input to an array of numbers
+            input_data: inputData.split(",").map((i) => [i]), // Convert comma-separated input to an array of numbers
         };
 
         try {
             // Send a POST request to the Django API
             const response = await axios.post("http://127.0.0.1:8000/api/predict/", data);
-            setPrediction(response.data.prediction); // Update prediction state
+            // setPrediction(response.data.prediction); // Update prediction state
+            setPrediction(response.data.top_shots); // Update prediction state
         } catch (err) {
             setError("An error occurred. Please check your input and try again.");
         }
