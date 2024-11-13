@@ -6,7 +6,7 @@ from sklearn.model_selection import train_test_split
 
 # Example data
 n_samples = 10000
-n_shots = 10  # Number of unique cricket shots (e.g., cover drive, pull, sweep, etc.)
+n_shots = 8  # Number of unique cricket shots (e.g., cover drive, pull, sweep, etc.)
 n_features = 4  # Height, weight, BMI, and age
 
 # Generate synthetic data for demonstration

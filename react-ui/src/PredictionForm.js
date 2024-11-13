@@ -79,7 +79,7 @@ const bowlingRecommendations = {
 
     return (
         <div>
-            <h2>TensorFlow Model Prediction</h2>
+            {/* <h2>TensorFlow Model Prediction</h2> */}
             <form onSubmit={handleSubmit}>
                 {/* <label>
                     Enter input data (comma-separated):
@@ -162,7 +162,13 @@ const bowlingRecommendations = {
             {prediction && (
                 <div>
                     <h3>Training Recommendations:</h3>
-                    <pre>{JSON.stringify(prediction, null, 2)}</pre>
+                    {/* <pre>{JSON.stringify(prediction, null, 2)}</pre> */}
+                    <ul>
+                    {
+                        prediction.map((i) => <li key={i.name}>{i.name} : <a href={i.videolink} target="_blank">{i.videolink}</a></li>)
+                    }
+                    </ul>
+                    
                 </div>
             )}
         </div>
