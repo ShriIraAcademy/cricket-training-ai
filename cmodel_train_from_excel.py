@@ -6,7 +6,7 @@ from tensorflow.keras.models import Model
 from sklearn.model_selection import train_test_split
 
 # Load data from Excel file
-file_path = "cricket_shot_ratings.xlsx"  # Path to your Excel file
+file_path = "Extended_Cricket_Shot_Dataset.xlsx"  # Path to your Excel file
 data = pd.read_excel(file_path)
 
 # Separate features and ratings
@@ -64,6 +64,8 @@ history = model.fit(
 test_loss, test_mae = model.evaluate([test_heights, test_weights, test_bmi, test_ages], test_ratings)
 print(f"Test MSE: {test_loss:.4f}, Test MAE: {test_mae:.4f}")
 
+
+model.save('tf_project/saved_model.keras')
 # Make predictions for a new user (height, weight, bmi, age) and recommend top cricket shots
 new_user = np.array([[175], [70], [22], [30]])  # Example input for a new user with age included
 predicted_ratings = model.predict([new_user[0], new_user[1], new_user[2], new_user[3]])
